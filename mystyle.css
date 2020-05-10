@@ -1,0 +1,9 @@
+h1 {
+    padding-top: 6rem;
+    color: white;
+    background-color: #008000;
+}
+.title {
+    /* position: fixed; */
+    padding-bottom: 6rem;
+}
