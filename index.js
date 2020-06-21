@@ -2,133 +2,10 @@
 // // This Tutorial follows with the conventions of the 
 // eloquentjavascript.net book's conventions. 
 
-// BASIC VARIABLES, OPERATIONS AND FUNCTIONS
-x = 4 + 3; 
-// if (x > 5){
-//     console.log('Hello');
-// }
-// function sayHello(){
-//     num = prompt('How many Hellos you want to Log?');
-//     var i = 0; 
-//     while (i < num){
-//         console.log('Hello!!');
-//         i++;
-//     }
-    
-
-// }
-// sayHello()
-// function sing(song){
-//     console.log(song);
-// }
-// sing('under my umbrella')
-// function multiply(a,b){
-//     return a * b; 
-// }
-// alert(multiply(4,5));
- //       //JAVASCRIPT DATA STRUCTURES 
-// var list = ['pear','mango','fish',['meat','eggs']]
-// // list.concat([1,4,5]);
-
-// // console.log(list);
-// var todos =[
-//     'call papa bobo', 
-//     'collect tv',
-//     'Nepa market', 
-//     'Find route to ota'
-// ]
-// for (var i = 0 ; i < todos.length ; i++){
-//     console.log(todos[i] + "!");
-//     alert(todos[i]+ "!");
-// }
-// while same with Java 
-
-// var counterOne = 10;
-
-// while(counterOne > 0 ){
-//     console.log(counterOne);
-//     consoleOne--;
-// }
-// var counterTwo = 10; 
-// do{
-//     console.log(counterTwo);
-//     counterTwo--;
-// }while(counterTwo > 0);
-
-// var todos =[
-//     'call papa bobo', 
-//     'collect tv',
-//     'Nepa market', 
-//     'Find route to ota'
-// ]
-// //for each takes each individual item of the todos lsit.
-// // todos.forEach(function(todo,i){
-// //     console.log(todo, i);
-// // })
-// function logTodos(todo, i){
-//     console.log(todo,i);
-// }
-
-// todos.forEach(logTodos);
-
-// var user = {
-//     name: 'David',
-//     age: 25, 
-//     hobby: 'Soccer', 
-//     isMarried: false,
-// };
-
-// var list = [
-//     {
-//         username: 'dave',
-//         password: 'password'
-//     },
-//     {
-//         username: 'joe',
-//         password: 'pass'
-//     }
-// ]
-// var database = [{
-//     username:'dave',
-//     password: 'pass'
-// },{
-//     username:'dan',
-//     password:'pass'
-// }];
-// var newsFeed = [
-//     {
-//         username: 'dave',
-//         timeline: 'Today was a great day'
-//     },
-//     {
-//         username:'pearl',
-//         timeline: 'I love javascript'
-//     }
-// ];
-// var userNamePrompt = prompt('What is your username');
-// var passwordPrompt = prompt('What is your password');
-// function signIn(username, password){
-// // if(username === database[0].username && password === database[0].password){
-// //     alert('Welcome')    ;
-// // }
-// // else{
-// //     alert('Wrong Details');
-// // }
-//     for (var i = 0; i < database.length; i++){
-//         if(database[i].username === username && database[i].password === password){
-//             alert('welcome');
-//             console.log(newsFeed);
-//             return;
-
-//         }
-//     }
-//     alert('wrong password');
-// }
-// signIn(userNamePrompt,passwordPrompt);
-// confirm('how are you')
 
 
-// // DOCUMENT OBJECT MODEL MANIPULATION
+
+// // DOCUMENT OBJECT MODEL MANIPULATION AND EVENTS
 
 // console.log(document);
 // var button = document.getElementsByTagName('button')[0];
@@ -194,7 +71,7 @@ x = 4 + 3;
     //     return whatHappens;
     // }
 
-  //  //Difference between constant and let 
+  //  CONST, LET AND VAR
 
 //     const player = 'bobby';
 //     let exp = 100; 
@@ -261,7 +138,7 @@ x = 4 + 3;
 // }
 
 
-// //Object Oriented PHP 
+// //OBJECT ORIENTED PHP
 
 // class Animal {
 //     constructor(name, color){
@@ -283,7 +160,7 @@ x = 4 + 3;
 // const cow = new Mammal('cow','black');
 // cow.moo();
 
-//Javascript closures
+//JAVASCRIPT CLOSURES
 //The function run once and will not run again but will 
 //remember the variable states. 
 // const first = () => {
@@ -415,17 +292,86 @@ Object.entries(obj).forEach(value => {
 Object.entries(obj).map(value => {
     return value[1] + value[0].replace('username', '');
 })
-alert('hi')
+console.log([0,38,88,4].reduce((a,b)=> a + b))
+//ASYNC AND AWAIT ES8 FEATURES
+//async wait performs a Promise call under the hood.
 
-// async 
-// await
+async function playerStart(){
+    const firstMove = await movePlayer(100,'Left');
+    //we use the await keyword in front of a function 
+    //that returns a promise.
+
+
+}
+//Normally with fetch we do:
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(resp => resp.json())
+    .then(result=>console.log(result))
+//now with async await we user:
+async function fetchUsers(){
+    const resp = await  fetch('https://jsonplaceholder.typicode.com/users')
+    const data = await resp.json();
+    console.log(data)
+    
+}
+const urls = [
+    'https://jsonplaceholder.typicode.com/users',
+    'https://jsonplaceholder.typicode.com/posts',
+    'https://jsonplaceholder.typicode.com/albums'
+  
+  ]
+//with the regular promise we would do:
+Promise.all(urls.map(url =>{
+    fetch(url).then(resp => resp.json()).then(result => {
+        console.log('users',result[0])
+        console.log('posts',result[1])
+        console.log('albums',result[2])
+    })
+} ))
+
+//Now with async await
+
+const data = async function(){
+    try{
+const [users, posts, albums] = await Promise.all(urls.map(
+    url =>{
+            fetch(url).then(resp => resp.json())
+    
+           
+    }))
+
+    console.log('users',users)
+    console.log('posts',posts)
+    console.log('albums',albums)
+    }
+    catch(err){
+        alert('oops',err)
+    }
+  
+}
+
+
 
     // DEBUGGING
-const flat = [[0,1,3],[2,3],[4,5]].reduce((a,b)=>
-{
-    debugger;
-    a.concat(b)
-} , []);
+// const flat = [[0,1,3],[2,3],[4,5]].reduce((a,b)=>
+// {
+    
+//     a.concat(b)
+// } , []);
+        //Synchronous vs Asynchronous 
+console.log(1);
 
+setTimeout(()=> console.log(2),2000)
 
-console.log([0,38,88,4].reduce((a,b)=> a + b))
+console.log(3)
+
+//We need more that the javascript web engine to run, 
+//we also need the JavaScript Run-Time Environment. 
+
+// 1. Call stack 
+
+// 2. Web Api
+
+// 3. CallBack Queue 
+
+// 4. Event Loop
